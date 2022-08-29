@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: npm all
+        run: npm run all
       - name: Publish
         run: npm publish --access public
 
