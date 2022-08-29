@@ -1,0 +1,42 @@
+name: 'release'
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - id: version
+        name: Determine next version
+        uses: conventional-actions/next-version@v1
+      - name: Update package.json version
+        uses: conventional-actions/write-version@v1
+        with:
+          version: ${{steps.version.outputs.version}}
+      - name: Create release
+        uses: conventional-actions/create-release@v1
+        with:
+          tag_name: ${{steps.version.outputs.version}}
+      - name: Create major release
+        uses: conventional-actions/create-release@v1
+        with:
+          tag_name: ${{steps.version.outputs.version-major}}
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm all
+      - name: Publish
+        run: npm publish --access public
+
+permissions:
+  contents: write
