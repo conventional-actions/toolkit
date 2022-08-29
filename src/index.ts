@@ -1,7 +1,7 @@
 import * as glob from 'glob'
 import {statSync} from 'fs'
 
-export const parseMultiInput = (files: string): string[] => {
+export function parseMultiInput(files: string): string[] {
   return files.split(/\r?\n/).reduce<string[]>(
     (acc, line) =>
       acc
@@ -12,7 +12,7 @@ export const parseMultiInput = (files: string): string[] => {
   )
 }
 
-export const paths = (patterns: string[]): string[] => {
+export function paths(patterns: string[]): string[] {
   return patterns.reduce((acc: string[], pattern: string): string[] => {
     return acc.concat(
       glob.sync(pattern).filter(path => statSync(path).isFile())
@@ -20,7 +20,7 @@ export const paths = (patterns: string[]): string[] => {
   }, [])
 }
 
-export const unmatchedPatterns = (patterns: string[]): string[] => {
+export function unmatchedPatterns(patterns: string[]): string[] {
   return patterns.reduce((acc: string[], pattern: string): string[] => {
     return acc.concat(
       glob.sync(pattern).filter(path => statSync(path).isFile()).length === 0
