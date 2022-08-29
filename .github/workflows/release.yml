@@ -35,7 +35,6 @@ jobs:
           scope: conventional-actions
           registry-url: https://npm.pkg.github.com/
           always-auth: true
-      - run: cat /home/runner/work/_temp/.npmrc
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -44,6 +43,7 @@ jobs:
         run: npm publish --access public
 
 env:
+  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
