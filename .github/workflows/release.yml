@@ -35,6 +35,8 @@ jobs:
           scope: conventional-actions
           registry-url: https://npm.pkg.github.com/
           always-auth: true
+      - name: Login
+        run: npm login
       - name: Install dependencies
         run: npm ci
       - name: Build
