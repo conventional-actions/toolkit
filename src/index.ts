@@ -36,7 +36,8 @@ export async function downloadToolFromManifest(
   repo: string,
   tool: string,
   version: string,
-  github_token: string
+  github_token: string,
+  archive_subdir?: string
 ): Promise<unknown> {
   const manifest = await tc.getManifestFromRepo(
     'conventional-actions',
@@ -76,7 +77,12 @@ export async function downloadToolFromManifest(
     }
     core.debug(`extracted to ${extPath}`)
 
-    const toolPath = await tc.cacheDir(extPath, tool, rel.version, os.arch())
+    const toolPath = await tc.cacheDir(
+      `${extPath}/${archive_subdir || ''}`,
+      tool,
+      rel.version,
+      os.arch()
+    )
     core.debug(`tool path ${toolPath}`)
 
     core.addPath(toolPath)
