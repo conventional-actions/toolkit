@@ -38,7 +38,7 @@ export async function downloadToolFromManifest(
   version: string,
   github_token: string,
   archive_subdir?: string
-): Promise<unknown> {
+): Promise<string> {
   const manifest = await tc.getManifestFromRepo(
     'conventional-actions',
     repo,
@@ -86,7 +86,7 @@ export async function downloadToolFromManifest(
     core.debug(`tool path ${toolPath}`)
 
     core.addPath(toolPath)
-    return
+    return toolPath
   } else {
     throw new Error(`could not find ${tool} ${version} for ${os.arch()}`)
   }
