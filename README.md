@@ -16,6 +16,10 @@ Find files matching the given patterns globs.
 
 Find glob patterns that do not match any files.
 
+### downloadToolFromManifest
+
+Download a tool using a manifest file and add the tool to the path.
+
 ## License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE).
