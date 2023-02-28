@@ -50,6 +50,6 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/tool-cache": "^2.0.1",
-    "glob": "^8.0.3"
+    "glob": "^9.0.1"
   }
 }
