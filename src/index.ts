@@ -1,6 +1,6 @@
+import {globSync} from 'node:fs'
 import * as core from '@actions/core'
 import * as tc from '@actions/tool-cache'
-import * as glob from 'glob'
 import {statSync} from 'fs'
 import os from 'os'
 import path from 'path'
@@ -18,14 +18,14 @@ export function parseMultiInput(files: string): string[] {
 
 export function paths(patterns: string[]): string[] {
   return patterns.reduce((acc: string[], pattern: string): string[] => {
-    return acc.concat(glob.sync(pattern).filter(p => statSync(p).isFile()))
+    return acc.concat(globSync(pattern).filter(p => statSync(p).isFile()))
   }, [])
 }
 
 export function unmatchedPatterns(patterns: string[]): string[] {
   return patterns.reduce((acc: string[], pattern: string): string[] => {
     return acc.concat(
-      glob.sync(pattern).filter(p => statSync(p).isFile()).length === 0
+      globSync(pattern).filter(p => statSync(p).isFile()).length === 0
         ? [pattern]
         : []
     )
